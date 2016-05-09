@@ -7,6 +7,6 @@ public class HiloMultiplosDos extends Thread {
 
     @Override
     public void run() {
-        super.run();
+
     }
 }
