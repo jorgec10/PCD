@@ -1,3 +1,7 @@
+import messagepassing.MailBox;
+
+import javax.activation.MailcapCommandMap;
+
 /**
  * Created by Jorge Gallego Madrid on 05/05/2016.
  */
@@ -15,13 +19,20 @@ public class Main {
         sharedBuffer = new int[SHARED_BUFFER_SIZE];     // Creamos el array compartido
         mixedBuffer = new int[MULT_THREAD_NUMBER];      // Creamos el array para mezclar los multiplos
 
+
+        MailBox generador = new MailBox();
+        MailBox controller = new MailBox();
+
+
         Thread mixer = new HiloMezclador();
         Thread recolector = new HiloRecolectorBasura();
-        Thread generator = new HiloGeneradorNum();
+        Thread generator = new HiloGeneradorNum(generador, controller);
         Thread mult2 = new HiloMultiplosDos();
         Thread mult3 = new HiloMultiplosTres();
         Thread mult5 = new HiloMultiplosCinco();
+        Thread control = new Controlador(controller);
 
+        control.start();
         generator.start();
         mult2.start();
         mult3.start();
@@ -30,6 +41,7 @@ public class Main {
         mixer.start();
 
         try {
+            control.join();
             generator.join();
             mult2.join();
             mult3.join();
