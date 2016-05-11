@@ -20,15 +20,20 @@ public class Main {
 
         MailBox gen = new MailBox();
         MailBox col = new MailBox();
-
+        MailBox recvNum2 = new MailBox();
+        MailBox sendNum2 = new MailBox();
+        MailBox recvNum3 = new MailBox();
+        MailBox sendNum3 = new MailBox();
+        MailBox recvNum5 = new MailBox();
+        MailBox sendNum5 = new MailBox();
 
         Thread mixer = new HiloMezclador();
         Thread recolector = new HiloRecolectorBasura(col);
         Thread generator = new HiloGeneradorNum(gen);
-        Thread mult2 = new HiloMultiplosDos();
-        Thread mult3 = new HiloMultiplosTres();
-        Thread mult5 = new HiloMultiplosCinco();
-        Thread control = new HiloControlador(gen, col);
+        Thread mult2 = new HiloMultiplosDos(recvNum2, sendNum2);
+        Thread mult3 = new HiloMultiplosTres(recvNum3, sendNum3);
+        Thread mult5 = new HiloMultiplosCinco(recvNum5, sendNum5);
+        Thread control = new HiloControlador(gen, col, recvNum2, sendNum2, recvNum3, sendNum3, recvNum5, sendNum5);
 
         control.start();
         generator.start();

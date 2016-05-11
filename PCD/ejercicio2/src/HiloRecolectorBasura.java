@@ -7,6 +7,7 @@ public class HiloRecolectorBasura extends Thread {
     private MailBox col;
 
     public HiloRecolectorBasura (MailBox col){
+        super("Recolector");
         this.col = col;
     }
 

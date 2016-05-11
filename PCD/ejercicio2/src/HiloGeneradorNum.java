@@ -9,6 +9,7 @@ public class HiloGeneradorNum extends Thread {
     private MailBox gen;
 
     public HiloGeneradorNum (MailBox gen){
+        super("Generador");
         this.gen = gen;
     }
 
