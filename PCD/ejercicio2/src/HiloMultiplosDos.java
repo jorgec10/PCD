@@ -1,3 +1,4 @@
+import messagepassing.Channel;
 import messagepassing.MailBox;
 
 /**
@@ -7,13 +8,16 @@ public class HiloMultiplosDos extends Thread {
 
     private int[] inBuffer;
     private MailBox recvNum, sendNum;
+    private Channel ch3, mix;
     private int cont;
 
-    public HiloMultiplosDos(MailBox recvNum, MailBox sendNum){
+    public HiloMultiplosDos(MailBox recvNum, MailBox sendNum, Channel ch3, Channel mix){
         super("Mul2");
         this.inBuffer = new int[Main.MAX_NUM/2];
         this.recvNum = recvNum;
         this.sendNum = sendNum;
+        this.ch3=ch3;
+        this.mix=mix;
         this.cont = 0;
 
     }
@@ -28,6 +32,18 @@ public class HiloMultiplosDos extends Thread {
                 cont++;
             }
         }
-        System.out.println("Hola");
+
+        System.out.println("Múltiplos de 2: ");
+        for (int i = 0; i < inBuffer.length - 1; i++) {
+            System.out.print(inBuffer[i] + " ");
+        }
+        System.out.println(inBuffer[inBuffer.length-1]);
+        ch3.send("Ya se pueden imprimir los múltiplos de 3");
+
+        for (int i = 0; i < inBuffer.length; i++) {
+            mix.send(inBuffer[i]);
+        }
+
+        mix.send(-1);
     }
 }

@@ -31,9 +31,6 @@ public class HiloControlador extends Thread{
         this.sel.addSelectable(this.recvNum2, false);
         this.sel.addSelectable(this.recvNum3, false);
         this.sel.addSelectable(this.recvNum5, false);
-
-
-
     }
 
     @Override
@@ -54,9 +51,6 @@ public class HiloControlador extends Thread{
         }
 
         for (int i = 0; i < 50000; i++) {
-
-           // System.out.println((emptySlotsBuff > 0) + " " + (slotToMult[cleaner] == 0)
-             //       + " " + (numAvailable[0] > 0) + " " + (numAvailable[1] > 0) + " " + (numAvailable[2] > 0));
 
             gen.setGuardValue(emptySlotsBuff > 0);
             col.setGuardValue(slotToMult[cleaner] == 0);
@@ -108,6 +102,9 @@ public class HiloControlador extends Thread{
             }
 
         }
+
+
+
 
 
 

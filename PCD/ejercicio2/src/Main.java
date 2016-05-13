@@ -1,3 +1,4 @@
+import messagepassing.Channel;
 import messagepassing.MailBox;
 
 /**
@@ -27,12 +28,19 @@ public class Main {
         MailBox recvNum5 = new MailBox();
         MailBox sendNum5 = new MailBox();
 
-        Thread mixer = new HiloMezclador();
+        Channel printMult3 = new Channel();
+        Channel printMult5 = new Channel();
+        Channel mixMult2 = new Channel();
+        Channel mixMult3 = new Channel();
+        Channel mixMult5 = new Channel();
+        Channel startMixPrint = new Channel();
+
+        Thread mixer = new HiloMezclador(startMixPrint, mixMult2, mixMult3, mixMult5);
         Thread recolector = new HiloRecolectorBasura(col);
         Thread generator = new HiloGeneradorNum(gen);
-        Thread mult2 = new HiloMultiplosDos(recvNum2, sendNum2);
-        Thread mult3 = new HiloMultiplosTres(recvNum3, sendNum3);
-        Thread mult5 = new HiloMultiplosCinco(recvNum5, sendNum5);
+        Thread mult2 = new HiloMultiplosDos(recvNum2, sendNum2, printMult3, mixMult2);
+        Thread mult3 = new HiloMultiplosTres(recvNum3, sendNum3, printMult3, printMult5, mixMult3);
+        Thread mult5 = new HiloMultiplosCinco(recvNum5, sendNum5, printMult5, mixMult5, startMixPrint);
         Thread control = new HiloControlador(gen, col, recvNum2, sendNum2, recvNum3, sendNum3, recvNum5, sendNum5);
 
         control.start();
