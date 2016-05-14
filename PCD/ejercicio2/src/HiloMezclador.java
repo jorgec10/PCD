@@ -52,7 +52,7 @@ public class HiloMezclador extends Thread {
         min = minimoMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
 
         while(min != -1){
-            System.out.println(mixedBuffer[min]);
+            System.out.print(mixedBuffer[min] + " ");
 
             mix2.setGuardValue(min == 0);
             mix3.setGuardValue(min == 1);
@@ -75,7 +75,5 @@ public class HiloMezclador extends Thread {
             min = minimoMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
 
         }
-
-
     }
 }

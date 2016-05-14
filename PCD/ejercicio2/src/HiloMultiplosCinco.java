@@ -49,7 +49,7 @@ public class HiloMultiplosCinco extends Thread {
             mix.send(inBuffer[i]);
         }
 
-        mix.send(-1);
+        mix.send(99999);
 
     }
 }
