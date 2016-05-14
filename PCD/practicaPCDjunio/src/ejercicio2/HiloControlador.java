@@ -12,12 +12,15 @@ public class HiloControlador extends Thread{
     private Selector sel;
     private MailBox recvNum2, recvNum3, recvNum5;
     private MailBox sendNum2, sendNum3, sendNum5;
+    private int [] sharedBuffer;
 
 
     public HiloControlador(MailBox gen, MailBox col, MailBox recvNum2, MailBox sendNum2, MailBox recvNum3, MailBox sendNum3, MailBox recvNum5, MailBox sendNum5){
         super("Controlador");
         this.gen = gen;
         this.col = col;
+
+        this.sharedBuffer = new int[Main.SHARED_BUFFER_SIZE];
 
         this.recvNum2 = sendNum2;
         this.sendNum2 = recvNum2;
@@ -37,7 +40,6 @@ public class HiloControlador extends Thread{
 
     @Override
     public void run() {
-        int [] sharedBuffer = new int[Main.SHARED_BUFFER_SIZE];
 
         int emptySlotsBuff = 10;
         int numSlot = 0;
@@ -45,10 +47,10 @@ public class HiloControlador extends Thread{
         int received = 0;
         int [] slotToMult = new int[10];            // Array donde se lleva la cuenta de los hilos mult que quedan por usar el numero de esa posicion
         for (int i = 0; i < 10; i++) {
-            slotToMult[i] = 3;
+            slotToMult[i] = Main.MULT_THREAD_NUMBER;
         }
-        int [] numAvailable = new int[3];           // Numero de enteros que le quedan por ver a cada hilo mult
-        for (int i = 0; i < 3; i++) {
+        int [] numAvailable = new int[Main.MULT_THREAD_NUMBER];           // Numero de enteros que le quedan por ver a cada hilo mult
+        for (int i = 0; i < Main.MULT_THREAD_NUMBER; i++) {
             numAvailable[i] = 0;
         }
 
@@ -77,7 +79,7 @@ public class HiloControlador extends Thread{
                 case 2:
                     received = (int) col.receive();
                     sharedBuffer[received] = 0;
-                    slotToMult[cleaner] = 3;
+                    slotToMult[cleaner] = Main.MULT_THREAD_NUMBER;
                     emptySlotsBuff++;
 
                     if(cleaner+1 == 10) cleaner = 0;

@@ -12,13 +12,10 @@ public class Main {
     public static final int SHARED_BUFFER_SIZE = 10;
     public static final int MULT_THREAD_NUMBER = 3;
 
-    public static int[] sharedBuffer;                   // Buffer donde se depositan los números
-    public static int[] mixedBuffer;                    // Buffer para mezclar los múltiplos
+
 
     public static void main(String[] args) {
 
-
-        mixedBuffer = new int[MULT_THREAD_NUMBER];      // Creamos el array para mezclar los multiplos
 
 
         MailBox gen = new MailBox();

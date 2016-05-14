@@ -14,7 +14,7 @@ public class HiloMezclador extends Thread {
     private int[] mixedBuffer;
     
     public HiloMezclador (Channel begin, Channel mix2, Channel mix3, Channel mix5){
-        this.mixedBuffer = new int[3];
+        this.mixedBuffer = new int[Main.MULT_THREAD_NUMBER];
 
         this.begin = begin;
         this.mix2 = mix2;
@@ -44,7 +44,7 @@ public class HiloMezclador extends Thread {
     @Override
     public void run() {
         begin.receive();
-        System.out.println("Mezcla: ");
+        System.out.println("Secuencia final: ");
         int min;
 
         mixedBuffer[0] = (int) mix2.receive();

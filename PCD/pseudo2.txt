@@ -1,0 +1,231 @@
+process HiloGeneradorNum
+var
+	gen: MailBox of integer;
+
+begin
+	for i:=1 to 10000 do
+		send(gen, i+1);
+end;
+
+
+
+process HiloRecolectorBasura
+var
+	col: MailBox of integer;
+
+begin
+	for i:=1 to 10000 do
+		send(col, i%10);
+end;
+
+
+process HiloMultiplosDos
+var
+	inBuffer: array [10000/2] of integer;
+	recvNum, sendNum:  MailBox of integer;
+	cont, received: integer;
+	ch3, mix: channel of integer;
+
+begin
+	cont:=0;
+	for i:=1 to 10000 do
+		send(sendNum, i%10);
+		received := receive(recvNum);
+		if (received%2 == 0)
+			inBuffer[cont] := received;
+			cont++;
+	
+	imprimir("Multiplos de 2: ");
+	for j:=1 to inBuffer.length-1 do
+		imprimir(inBuffer[j] + " ");
+	imprimir(inBuffer[inBuffer.length-1]);
+	send(ch3, "Ya se pueden imprimir los multiplos de 3");
+
+	for k:=1 to inBuffer.length do
+		send(mix, inBuffer[i]);
+	send(mix, 99999);
+end;
+
+
+
+process HiloMultiplosTres
+var
+	inBuffer: array [10000/3] of integer;
+	recvNum, sendNum:  MailBox of integer;
+	cont, received: integer;
+	ch3, ch5, mix: channel of integer;
+
+begin
+	cont:=0;
+	for i:=1 to 10000 do
+		send(sendNum, i%10);
+		received := receive(recvNum);
+		if (received%3 == 0)
+			inBuffer[cont] := received;
+			cont++;
+	
+	receive(ch3);
+	imprimir("Multiplos de 3: ");
+	for j:=1 to inBuffer.length-1 do
+		imprimir(inBuffer[j] + " ");
+	imprimir(inBuffer[inBuffer.length-1]);
+	send(ch3, "Ya se pueden imprimir los multiplos de 5");
+
+	for k:=1 to inBuffer.length do
+		send(mix, inBuffer[i]);
+	send(mix, 99999);
+end;
+
+
+
+process HiloMultiplosCinco
+var
+	inBuffer: array [10000/5] of integer;
+	recvNum, sendNum:  MailBox of integer;
+	cont, received: integer;
+	ch5, mix, mixPrint: channel of integer;
+
+begin
+	cont:=0;
+	for i:=1 to 10000 do
+		send(sendNum, i%10);
+		received := receive(recvNum);
+		if (received%5 == 0)
+			inBuffer[cont] := received;
+			cont++;
+	
+	receive(ch5);
+	imprimir("Multiplos de 5: ");
+	for j:=1 to inBuffer.length-1 do
+		imprimir(inBuffer[j] + " ");
+	imprimir(inBuffer[inBuffer.length-1]);
+	send(ch3, "Ya puede comenzar el mezclador");
+
+	for k:=1 to inBuffer.length do
+		send(mix, inBuffer[i]);
+	send(mix, 99999);
+end;
+
+
+
+process HiloControlador
+var
+	recvNum2, recvNum3, recvNum5: MailBox of integer;
+	sendNum2, sendNum3, sendNum5: MailBox of integer;
+	gen, col: MailBox of integer;
+	emptySlotBuff, numSlot, cleaner, received: integer;
+	sharedBuffer, slotToMult: array [10] of integer;
+	numAvailable: array [3] of integer;
+
+begin
+	numslot, cleaner, received := 0;
+	emptySlotBuff := 10;
+	slotToMult := 4;
+	numAvailable := 0;
+
+	for i:=1 to 50000 do
+		select
+			(emptySlotsBuff > 0)
+				received := receive(gen);
+				sharedBuffer[numSlot] = received;
+				emptySlotBuff--;
+				if(numSlot+1 == 10) numSlot = 0;
+                else numSlot++;
+                for j:=1 to 3 do
+                 	numAvailable[j]++;
+            or when (slotToMult[cleaner] == 0)
+            	received := receive(col);
+            	sharedBuffer[received] = 0;
+            	slotToMult[cleaner] = 3;
+            	emptySlotBuff++;
+            	if(cleaner+1 == 10) cleaner = 0;
+                else cleaner++;
+            or when (numAvailable[0] > 0)
+            	received := receive(recvNum2);
+            	send(sendNum2, sharedBuffer[received]);
+            	slotToMult[received]--;
+            	numAvailable[0]--;
+            or when (numAvailable[1] > 0)
+            	received := receive(recvNum3);
+            	send(sendNum3, sharedBuffer[received]);
+            	slotToMult[received]--;
+            	numAvailable[1]--;
+            or when (numAvailable[2] > 0)
+            	received := receive(recvNum5);
+            	send(sendNum5, sharedBuffer[received]);
+            	slotToMult[received]--;
+            	numAvailable[2]--;
+end;
+
+
+
+process HiloMezclador
+var
+	begin, mix2, mix3, mix5: channel of integer;
+	mixedBuffer: array [3] of integer;
+	min: integer;
+
+function minimoMixed(a,b,c: integer): integer
+begin
+	if (a==99999) and (b==99999) and (c==99999)
+		return -1;
+	else
+		if (a<=b and a<=c)
+                return 0;
+            else if (b<=a and b<=c)
+                return 1;
+            else
+                return 2; 
+end;
+
+begin
+	receive(begin);
+	imprimir("Secuencia final: ")
+
+	mixedBuffer[0] = receive(mix2);
+	mixedBuffer[1] = receive(mix3);
+	mixedBuffer[2] = receive(mix5);
+
+	min:= minimoMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
+
+	while(min<>-1)
+		imprimir(mixedBuffer[min] + " ");
+		select
+			(min = 0)
+				mixedBuffer[0] = receive(mix2);
+			or when (min = 1)
+				mixedBuffer[1] = receive(mix3);
+			or when (min = 2)
+				mixedBuffer[2] = receive(mix5);
+		min:= minimoMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
+end;
+
+
+
+main
+var
+	gen, col: MailBox of integer;
+	recvNum2, recvNum3, recvNum5: MailBox of integer;
+	sendNum2, sendNum3, sendNum5: MailBox of integer;
+	printMult3, printMult5, startMixPrint: channel of integer;
+	mixMult2, mixMult3, mixMult5: channel of integer;
+
+	mixer: HiloMezclador;
+	recolector: HiloRecolectorBasura;
+	generator: HiloGeneradorNum;
+	mult2: HiloMultiplosDos;
+	mult3: HiloMultiplosTres;
+	mult5: HiloMultiplosCinco;
+	control: HiloControlador;
+
+begin
+	cobegin
+		control;
+		generator;
+		mult2;
+		mult3;
+		mult5;
+		recolector;
+		mixer;
+	coend;
+end;
