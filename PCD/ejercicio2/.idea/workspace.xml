@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e093e10-40fa-4eb7-ba34-08fe23e6f228" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ejercicio2/HiloMezclador.class" afterPath="$PROJECT_DIR$/out/production/ejercicio2/HiloMezclador.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ejercicio2/HiloMultiplosCinco.class" afterPath="$PROJECT_DIR$/out/production/ejercicio2/HiloMultiplosCinco.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ejercicio2/HiloMultiplosDos.class" afterPath="$PROJECT_DIR$/out/production/ejercicio2/HiloMultiplosDos.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ejercicio2/HiloMultiplosTres.class" afterPath="$PROJECT_DIR$/out/production/ejercicio2/HiloMultiplosTres.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HiloMezclador.java" afterPath="$PROJECT_DIR$/src/HiloMezclador.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HiloMultiplosCinco.java" afterPath="$PROJECT_DIR$/src/HiloMultiplosCinco.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HiloMultiplosDos.java" afterPath="$PROJECT_DIR$/src/HiloMultiplosDos.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HiloMultiplosTres.java" afterPath="$PROJECT_DIR$/src/HiloMultiplosTres.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../ejercicio1/practicaPCD.iml" afterPath="$PROJECT_DIR$/../ejercicio1/.idea/ejercicio1.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ejercicio1/src/HiloMezclador.java" afterPath="$PROJECT_DIR$/../ejercicio1/src/HiloMezclador.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ejercicio1/src/MonitorSincronizador.java" afterPath="$PROJECT_DIR$/../ejercicio1/src/MonitorSincronizador.java" />
     </list>
     <ignored path="ejercicio2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -699,12 +684,12 @@
       <workItem from="1463087522095" duration="10000" />
       <workItem from="1463087602350" duration="2970000" />
       <workItem from="1463153671618" duration="6545000" />
-      <workItem from="1463219397215" duration="3099000" />
+      <workItem from="1463219397215" duration="3710000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44644000" />
+    <option name="totallyTimeSpent" value="45255000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />

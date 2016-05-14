@@ -1,3 +1,5 @@
+package ejercicio1;
+
 /**
  * Created by Jorge Gallego Madrid on 19/04/2016
  */

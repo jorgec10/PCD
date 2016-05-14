@@ -1,3 +1,5 @@
+package ejercicio1;
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.*;
 
@@ -66,7 +68,7 @@ public class MonitorSincronizador {
         }
     }
 
-    public void wantMixed(int threadNum){
+    public void enviaNumero(int threadNum){
         lock.lock();
         try{
             while(!bufferAvailable[threadNum]){
@@ -79,7 +81,7 @@ public class MonitorSincronizador {
         }
     }
 
-    public void doneMixed(int threadNum){
+    public void numeroEnviado(int threadNum){
         lock.lock();
         try {
             bufferAvailable[threadNum] = false;
