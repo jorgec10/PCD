@@ -8,19 +8,21 @@ import java.util.concurrent.Semaphore;
  */
 public class Main {
 
-    public static final int MAX_NUM = 10000;
-    public static final int SHARED_BUFFER_SIZE = 10;
-    public static final int MULT_THREAD_NUMBER = 3;
+    static final int MAX_NUM = 10000;
+    static final int SHARED_BUFFER_SIZE = 10;
+    static final int MULT_THREAD_NUMBER = 3;
 
-    public static Semaphore[] ready;                    // Da paso a los multiplos
-    public static Semaphore[] seen;                     // Lleva la cuenta de los multiplos que ha cogido
-    public static Semaphore mutex;                      // Exclusión mutua
-    public static Semaphore available;                  // Controla si se llena el buffer de números
+    static Semaphore[] ready;                    // Da paso a los multiplos
+    static Semaphore[] seen;                     // Lleva la cuenta de los multiplos que ha cogido
+    static Semaphore mutex;                      // Exclusión mutua
+    static Semaphore available;                  // Controla si se llena el buffer de números
 
-    public static int[] sharedBuffer;                   // Buffer donde se depositan los números
-    public static int[] mixedBuffer;                    // Buffer para mezclar los múltiplos
+    static Semaphore sem3, sem5, beginMix;
 
-    public static MonitorSincronizador monitor;
+    static int[] sharedBuffer;                   // Buffer donde se depositan los números
+    static int[] mixedBuffer;                    // Buffer para mezclar los múltiplos
+
+    static MonitorSincronizador monitor;
 
 
     public static void main(String[] args){
@@ -32,6 +34,10 @@ public class Main {
         }
         mutex = new Semaphore(1);                       // Se inicializa a 1
         available = new Semaphore(10);                  // Se inicializa a 10, huecos disponibles
+
+        sem3 = new Semaphore(0);
+        sem5 = new Semaphore(0);
+        beginMix = new Semaphore(0);
 
         sharedBuffer = new int[SHARED_BUFFER_SIZE];     // Creamos el array compartido
         mixedBuffer = new int[MULT_THREAD_NUMBER];      // Creamos el array para mezclar los multiplos

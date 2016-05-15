@@ -8,15 +8,13 @@ import messagepassing.MailBox;
  */
 public class Main {
 
-    public static final int MAX_NUM = 10000;
-    public static final int SHARED_BUFFER_SIZE = 10;
-    public static final int MULT_THREAD_NUMBER = 3;
+    static final int MAX_NUM = 10000;
+    static final int SHARED_BUFFER_SIZE = 10;
+    static final int MULT_THREAD_NUMBER = 3;
 
 
 
     public static void main(String[] args) {
-
-
 
         MailBox gen = new MailBox();
         MailBox col = new MailBox();

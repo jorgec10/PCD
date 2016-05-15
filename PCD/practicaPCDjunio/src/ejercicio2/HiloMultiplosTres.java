@@ -6,14 +6,14 @@ import messagepassing.MailBox;
 /**
  * Created by Jorge Gallego Madrid on 09/05/2016.
  */
-public class HiloMultiplosTres extends Thread {
+class HiloMultiplosTres extends Thread {
 
     private int[] inBuffer;
     private MailBox recvNum, sendNum;
     private Channel ch3, ch5, mix;
     private int cont;
 
-    public HiloMultiplosTres(MailBox recvNum, MailBox sendNum, Channel ch3, Channel ch5, Channel mix){
+    HiloMultiplosTres(MailBox recvNum, MailBox sendNum, Channel ch3, Channel ch5, Channel mix){
         super("Mul3");
         this.inBuffer = new int[Main.MAX_NUM/3];
         this.recvNum = recvNum;

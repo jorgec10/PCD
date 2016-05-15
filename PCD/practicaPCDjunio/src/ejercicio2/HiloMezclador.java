@@ -6,14 +6,14 @@ import messagepassing.Selector;
 /**
  * Created by Jorge Gallego Madrid on 09/05/2016.
  */
-public class HiloMezclador extends Thread {
+class HiloMezclador extends Thread {
     
     private Channel begin;
     private Channel mix2, mix3, mix5;
     private Selector sel;
     private int[] mixedBuffer;
     
-    public HiloMezclador (Channel begin, Channel mix2, Channel mix3, Channel mix5){
+    HiloMezclador (Channel begin, Channel mix2, Channel mix3, Channel mix5){
         this.mixedBuffer = new int[Main.MULT_THREAD_NUMBER];
 
         this.begin = begin;
@@ -29,7 +29,7 @@ public class HiloMezclador extends Thread {
     }
 
 
-    private int minimoMixed(int a, int b, int c){
+    private int minMixed(int a, int b, int c){
         if ((a==99999) && (b==99999) && (c==99999)) return -1;
         else {
             if (a<=b && a<=c)
@@ -51,7 +51,7 @@ public class HiloMezclador extends Thread {
         mixedBuffer[1] = (int) mix3.receive();
         mixedBuffer[2] = (int) mix5.receive();
 
-        min = minimoMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
+        min = minMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
 
         while(min != -1){
             System.out.print(mixedBuffer[min] + " ");
@@ -74,7 +74,7 @@ public class HiloMezclador extends Thread {
                     break;
             }
 
-            min = minimoMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
+            min = minMixed(mixedBuffer[0], mixedBuffer[1], mixedBuffer[2]);
 
         }
     }

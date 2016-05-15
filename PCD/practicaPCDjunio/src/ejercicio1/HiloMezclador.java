@@ -3,11 +3,11 @@ package ejercicio1;
 /**
  * Created by Jorge Gallego Madrid on 19/04/2016
  */
-public class HiloMezclador extends Thread {
+class HiloMezclador extends Thread {
 
     private MonitorSincronizador monitor;
 
-    public HiloMezclador (MonitorSincronizador m){
+    HiloMezclador (MonitorSincronizador m){
         this.monitor = m;
     }
 
@@ -25,7 +25,11 @@ public class HiloMezclador extends Thread {
 
     @Override
     public void run() {
-        Main.monitor.empiezaImprimir(3);
+        try {
+            Main.beginMix.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Secuencia final: ");
         int posicion = minimoMixed(Main.mixedBuffer[0], Main.mixedBuffer[1], Main.mixedBuffer[2]);
         while (posicion!=-1) {

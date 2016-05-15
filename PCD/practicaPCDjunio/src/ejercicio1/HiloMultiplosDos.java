@@ -3,13 +3,13 @@ package ejercicio1;
 /**
  * Created by Jorge Gallego Madrid on 19/04/2016
  */
-public class HiloMultiplosDos extends Thread{
+class HiloMultiplosDos extends Thread{
 
     private int[] inBuffer = new int[Main.MAX_NUM/2];
 
     private MonitorSincronizador monitor;
 
-    public HiloMultiplosDos(MonitorSincronizador m){
+    HiloMultiplosDos(MonitorSincronizador m){
         this.monitor=m;
     }
 
@@ -33,9 +33,6 @@ public class HiloMultiplosDos extends Thread{
             Main.seen[0].release();
         }
 
-        // Imprimimos los multiplos
-        // No hace falta usar la operacion empiezaImprimir del monitor porque es el primero
-        // que tiene que imprimirlos.
         System.out.println("Múltiplos de 2: ");
         for (int j = 0; j < inBuffer.length-1; j++) {
             System.out.print(inBuffer[j] + " ");
@@ -43,7 +40,7 @@ public class HiloMultiplosDos extends Thread{
         System.out.println(inBuffer[inBuffer.length-1]);
 
         Main.mixedBuffer[0] = inBuffer[0];
-        monitor.finImprimir(0);
+        Main.sem3.release();
 
         for (int i = 1; i < cont; i++) {
             monitor.enviaNumero(0);

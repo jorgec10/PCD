@@ -6,11 +6,11 @@ import messagepassing.MailBox;
  * Created by Jorge Gallego Madrid on 09/05/2016.
  */
 
-public class HiloGeneradorNum extends Thread {
+class HiloGeneradorNum extends Thread {
 
     private MailBox gen;
 
-    public HiloGeneradorNum (MailBox gen){
+    HiloGeneradorNum (MailBox gen){
         super("Generador");
         this.gen = gen;
     }

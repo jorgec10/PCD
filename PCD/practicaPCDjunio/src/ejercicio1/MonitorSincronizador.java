@@ -6,20 +6,18 @@ import java.util.concurrent.locks.*;
 /**
  * Created by Jorge Gallego Madrid on 19/04/2016
  */
-public class MonitorSincronizador {
+class MonitorSincronizador {
 
     private Condition[] waiting;
-    private boolean[] printed, bufferAvailable;
+    private boolean[] bufferAvailable;
     private ReentrantLock lock;
 
-    public MonitorSincronizador(){
+    MonitorSincronizador(){
         lock = new ReentrantLock();
-        printed = new boolean[Main.MULT_THREAD_NUMBER];
         bufferAvailable = new boolean[Main.MULT_THREAD_NUMBER];
         waiting = new Condition[Main.MULT_THREAD_NUMBER + 1]; // Hay que tener en cuenta el mezclador
 
         for (int i = 0; i < Main.MULT_THREAD_NUMBER; i++) {
-            printed[i] = false;
             bufferAvailable[i] = false;
         }
         for (int i = 0; i < 4; i++) {
@@ -27,33 +25,7 @@ public class MonitorSincronizador {
         }
     }
 
-
-    public void empiezaImprimir (int threadNum){
-        lock.lock();
-        try{
-            while (!printed[threadNum-1]){
-                waiting[threadNum].await();
-            }
-        }
-        catch(InterruptedException e){
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public void finImprimir (int threadNum){
-        lock.lock();
-        try{
-            printed[threadNum] = true;
-            waiting[threadNum+1].signal();
-        } finally {
-            lock.unlock();
-        }
-
-    }
-
-    public void posicionLiberada(int threadNum){
+    void posicionLiberada(int threadNum){
         lock.lock();
         try{
             bufferAvailable[threadNum] = true;
@@ -68,7 +40,7 @@ public class MonitorSincronizador {
         }
     }
 
-    public void enviaNumero(int threadNum){
+    void enviaNumero(int threadNum){
         lock.lock();
         try{
             while(!bufferAvailable[threadNum]){
@@ -81,7 +53,7 @@ public class MonitorSincronizador {
         }
     }
 
-    public void numeroEnviado(int threadNum){
+    void numeroEnviado(int threadNum){
         lock.lock();
         try {
             bufferAvailable[threadNum] = false;

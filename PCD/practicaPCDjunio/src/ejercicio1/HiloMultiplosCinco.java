@@ -2,14 +2,13 @@ package ejercicio1;
 
 /**
  * Created by Jorge Gallego Madrid on 19/04/2016
- */
-public class HiloMultiplosCinco extends Thread{
+ */class HiloMultiplosCinco extends Thread{
 
     private int[] inBuffer = new int[Main.MAX_NUM/5];
 
     private MonitorSincronizador monitor;
 
-    public HiloMultiplosCinco(MonitorSincronizador m){
+    HiloMultiplosCinco(MonitorSincronizador m){
         this.monitor=m;
     }
 
@@ -33,8 +32,11 @@ public class HiloMultiplosCinco extends Thread{
             Main.seen[2].release();
         }
 
-        // Imprimimos los multiplos
-        monitor.empiezaImprimir(2);
+        try {
+            Main.sem5.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Múltiplos de 5: ");
         for (int j = 0; j < inBuffer.length-1; j++) {
             System.out.print(inBuffer[j] + " ");
@@ -42,7 +44,7 @@ public class HiloMultiplosCinco extends Thread{
         System.out.println(inBuffer[inBuffer.length-1]);
 
         Main.mixedBuffer[2] = inBuffer[0];
-        monitor.finImprimir(2);
+        Main.beginMix.release();
 
         for (int i = 1; i < cont; i++) {
             monitor.enviaNumero(2);

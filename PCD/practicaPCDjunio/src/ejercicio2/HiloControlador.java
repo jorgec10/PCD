@@ -6,7 +6,7 @@ import messagepassing.Selector;
 /**
  * Created by Jorge Gallego Madrid on 09/05/2016.
  */
-public class HiloControlador extends Thread{
+class HiloControlador extends Thread{
 
     private MailBox gen, col;
     private Selector sel;
@@ -15,7 +15,7 @@ public class HiloControlador extends Thread{
     private int [] sharedBuffer;
 
 
-    public HiloControlador(MailBox gen, MailBox col, MailBox recvNum2, MailBox sendNum2, MailBox recvNum3, MailBox sendNum3, MailBox recvNum5, MailBox sendNum5){
+    HiloControlador(MailBox gen, MailBox col, MailBox recvNum2, MailBox sendNum2, MailBox recvNum3, MailBox sendNum3, MailBox recvNum5, MailBox sendNum5){
         super("Controlador");
         this.gen = gen;
         this.col = col;

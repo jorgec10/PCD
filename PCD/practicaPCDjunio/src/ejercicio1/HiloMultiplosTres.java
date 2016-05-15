@@ -3,13 +3,13 @@ package ejercicio1;
 /**
  * Created by Jorge Gallego Madrid on 19/04/2016
  */
-public class HiloMultiplosTres extends Thread{
+class HiloMultiplosTres extends Thread{
 
     private int[] inBuffer = new int[Main.MAX_NUM/3];
 
     private MonitorSincronizador monitor;
 
-    public HiloMultiplosTres(MonitorSincronizador m){
+    HiloMultiplosTres(MonitorSincronizador m){
         this.monitor=m;
     }
 
@@ -33,8 +33,11 @@ public class HiloMultiplosTres extends Thread{
             Main.seen[1].release();
         }
 
-        // Imprimimos los multiplos
-        monitor.empiezaImprimir(1);
+        try {
+            Main.sem3.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Múltiplos de 3: ");
         for (int j = 0; j < inBuffer.length-1; j++) {
             System.out.print(inBuffer[j] + " ");
@@ -42,7 +45,7 @@ public class HiloMultiplosTres extends Thread{
         System.out.println(inBuffer[inBuffer.length-1]);
 
         Main.mixedBuffer[1] = inBuffer[0];
-        monitor.finImprimir(1);
+        Main.sem5.release();
 
         for (int i = 1; i < cont; i++) {
             monitor.enviaNumero(1);

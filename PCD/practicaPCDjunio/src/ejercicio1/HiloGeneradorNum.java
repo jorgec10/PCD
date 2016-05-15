@@ -3,7 +3,7 @@ package ejercicio1;
 /**
  * Created by Jorge Gallego Madrid on 27/04/2016
  */
-public class HiloGeneradorNum extends Thread{
+class HiloGeneradorNum extends Thread{
 
     @Override
     public void run() {
